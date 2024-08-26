@@ -36,5 +36,5 @@ public class Entrenador {
     public void setListaSesiones(ArrayList<Sesion> listaSesiones) {
         this.listaSesiones = listaSesiones;
     }
-    
+
 }
