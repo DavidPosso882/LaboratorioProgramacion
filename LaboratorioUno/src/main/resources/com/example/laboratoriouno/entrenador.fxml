@@ -19,17 +19,17 @@
                   <Label layoutX="22.0" layoutY="64.0" text="Nombre:" />
                   <Label layoutX="12.0" layoutY="95.0" text="Especialidad:" />
                   <TextField fx:id="txtEspecialidad" layoutX="91.0" layoutY="91.0" />
-                  <Button fx:id="btnGuardar" layoutX="34.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
-                  <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
-                  <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificar" text="Modificar" />
+                  <Button fx:id="btnGuardar" layoutX="34.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardarEntrenadorAction" text="Guardar" />
+                  <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarEntrenadorAction" text="Eliminar" />
+                  <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificarEntrenadorAction" text="Modificar" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView layoutX="52.0" layoutY="23.0" prefHeight="403.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableEmpleados" layoutX="52.0" layoutY="23.0" prefHeight="403.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="150.0" text="Nombre" />
-                      <TableColumn prefWidth="150.0" text="Especialidad" />
+                      <TableColumn fx:id="tcNombre" prefWidth="150.0" text="Nombre" />
+                      <TableColumn fx:id="tcEspecialidad" prefWidth="150.0" text="Especialidad" />
                     </columns>
                   </TableView>
                </children>
