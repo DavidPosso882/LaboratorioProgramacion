@@ -36,5 +36,11 @@ public class Entrenador {
     public void setListaSesiones(ArrayList<Sesion> listaSesiones) {
         this.listaSesiones = listaSesiones;
     }
-
+    public void enlistarSesion(Sesion sesion){
+        listaSesiones.add(sesion);
+    }
+    public static Entrenador crearEntrenador(String nombre, String especialidad, ArrayList<Sesion> listaSesiones) {
+        Entrenador entrenador = new Entrenador(nombre, especialidad, listaSesiones);
+        return entrenador;
+    }
 }

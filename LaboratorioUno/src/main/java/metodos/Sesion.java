@@ -1,18 +1,17 @@
 package metodos;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 public class Sesion {
     private LocalDateTime fecha;
-    private int tiempoMin;
+    private int duracionMin;
     public Estado estado;
     public Deporte deporte;
     public Entrenador entrenador;
 
-    public Sesion(LocalDateTime fecha, int tiempoMin, Estado estado, Deporte deporte, Entrenador entrenador) {
+    public Sesion(LocalDateTime fecha, int duracionMin, Estado estado, Deporte deporte, Entrenador entrenador) {
         this.fecha = fecha;
-        this.tiempoMin = tiempoMin;
+        this.duracionMin = duracionMin;
         this.estado = estado;
         this.deporte = deporte;
         this.entrenador = entrenador;
@@ -26,12 +25,12 @@ public class Sesion {
         this.fecha = fecha;
     }
 
-    public int getTiempoMin() {
-        return tiempoMin;
+    public int getDuracionMin() {
+        return duracionMin;
     }
 
-    public void setTiempoMin(int tiempoMin) {
-        this.tiempoMin = tiempoMin;
+    public void setDuracionMin(int duracionMin) {
+        this.duracionMin = duracionMin;
     }
 
     public Estado getEstado() {
@@ -58,8 +57,7 @@ public class Sesion {
         this.entrenador = entrenador;
     }
 
-    public static ArrayList<Sesion> asociarDeporteEntrenador(Deporte deporte, Entrenador entrenador) {
-        ArrayList<Sesion> sesion = new ArrayList<>();
-        return sesion;
+    public void crearSesionEntrenamiento(LocalDateTime fecha,int duracionMin,Estado estado,Deporte deporte, Entrenador entrenador) {
+        Entrenador entrenadorActual = ;
     }
 }
