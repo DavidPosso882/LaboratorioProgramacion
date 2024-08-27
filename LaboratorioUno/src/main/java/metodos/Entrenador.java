@@ -1,5 +1,6 @@
 package metodos;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Entrenador {
@@ -39,8 +40,38 @@ public class Entrenador {
     public void enlistarSesion(Sesion sesion){
         listaSesiones.add(sesion);
     }
-    public static Entrenador crearEntrenador(String nombre, String especialidad, ArrayList<Sesion> listaSesiones) {
-        Entrenador entrenador = new Entrenador(nombre, especialidad, listaSesiones);
-        return entrenador;
+    public static ArrayList<Entrenador> leerEntrenador() {
+        ArrayList<Entrenador> listaEntrenador = new ArrayList<>();
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(archivoEntrenador));
+            String linea;
+            try {
+                while ((linea = reader.readLine()) != null){
+                    String[] datos = linea.split(";");
+                    String nombre = datos[0];
+                    String especialidad = datos[1];
+                    ArrayList<Sesion> listaSesiones = new ArrayList<>();
+                    listaEntrenador.add(new Entrenador(nombre, especialidad, listaSesiones));
+                }
+            } catch (Throwable var13) {
+                try {
+                    reader.close();
+                } catch (Throwable var12) {
+                    var13.addSuppressed(var12);
+                }
+
+                throw var13;
+            }
+
+            reader.close();
+        } catch (IOException var14) {
+            try {
+                new BufferedWriter(new FileWriter(archivoEntrenador, true));
+            } catch (IOException var11) {
+                throw new RuntimeException();
+            }
+        }
+
+        return listaEntrenador;
     }
 }
