@@ -2,10 +2,7 @@ package com.example.laboratoriouno;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class SesionViewController {
     @FXML
@@ -18,15 +15,6 @@ public class SesionViewController {
     private Button btnModificar;
 
     @FXML
-    private ComboBox<?> cmboxDeporte;
-
-    @FXML
-    private ComboBox<?> cmboxDuracion;
-
-    @FXML
-    private ComboBox<?> cmboxEntrenador;
-
-    @FXML
     private TableView<?> tableSesion;
 
     @FXML
@@ -37,6 +25,15 @@ public class SesionViewController {
 
     @FXML
     private TableColumn<?, ?> tcFecha;
+
+    @FXML
+    private TextField txtDeporte;
+
+    @FXML
+    private TextField txtDuracion;
+
+    @FXML
+    private TextField txtEntrenador;
 
     @FXML
     void eliminarSesionAction(ActionEvent event) {
