@@ -1,5 +1,6 @@
 package com.example.laboratoriouno;
 
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import metodos.MetodosCrud;
 import metodos.Miembro;
 import metodos.Modelo;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,8 @@ public class MiembroController {
     private TextField txtTipo;
 
     @FXML
-    List<Modelo>m=MetodosCrud.readFromFile("miembros.json");
+    Type listType = new TypeToken<ArrayList<Modelo>>(){}.getType();
+    List<Modelo>m=MetodosCrud.readFromFile("miembros.json",listType);
 
     @FXML
     private TableView<Modelo> tableMiembros;

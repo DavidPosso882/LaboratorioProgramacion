@@ -1,23 +1,19 @@
 package metodos;
 
-public class Deporte {
+import java.util.ArrayList;
 
-    private String nombre;
+public class Deporte extends Modelo {
+
     private String descripcion;
     private Dificultad dificultad;
 
-    public Deporte(String nombre, String descripcion, Dificultad dificultad) {
-        this.nombre = nombre;
+    public ArrayList<Modelo>entrenadores;
+
+    public Deporte(int id, String nombre, String descripcion, Dificultad dificultad) {
+        super(id, nombre);
         this.descripcion = descripcion;
         this.dificultad = dificultad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.entrenadores=new ArrayList<>();
     }
 
     public String getDescripcion() {
@@ -34,6 +30,18 @@ public class Deporte {
 
     public void setDificultad(Dificultad dificultad) {
         this.dificultad = dificultad;
+    }
+
+    public ArrayList<Modelo> getEntrenadores() {
+        return entrenadores;
+    }
+
+    public void setEntrenadores(ArrayList<Modelo> entrenadores) {
+        this.entrenadores = entrenadores;
+    }
+
+    public Deporte() {
+        this.entrenadores=new ArrayList<>();
     }
 }
 

@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.DeporteController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.DeporteController">
    <children>
       <SplitPane dividerPositions="0.4782608695652174" layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="104.0" layoutY="26.0" text="DEPORTES" textAlignment="CENTER">
+                  <Label layoutX="101.0" layoutY="14.0" text="DEPORTES" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtNombreDeporte" layoutX="120.0" layoutY="74.0" />
-                  <TextField fx:id="txtDificultad" layoutX="120.0" layoutY="110.0" />
-                  <Label layoutX="37.0" layoutY="78.0" text="Nombre:" textAlignment="CENTER">
+                  <TextField fx:id="txtNombreDeporte" layoutX="119.0" layoutY="97.0" />
+                  <TextField fx:id="txtDificultad" layoutX="120.0" layoutY="132.0" />
+                  <Label layoutX="34.0" layoutY="100.0" text="Nombre:" textAlignment="CENTER">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="34.0" layoutY="113.0" text="Dificultad:" textAlignment="CENTER">
+                  <Label layoutX="34.0" layoutY="135.0" text="Dificultad:" textAlignment="CENTER">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="30.0" layoutY="149.0" text="Entrenador:" textAlignment="CENTER">
+                  <Label layoutX="30.0" layoutY="171.0" text="Entrenador:" textAlignment="CENTER">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtNombreEntrenador" layoutX="120.0" layoutY="146.0" />
-                  <Label layoutX="37.0" layoutY="221.0" text="Descripción:" textAlignment="CENTER">
+                  <TextField fx:id="txtIdEntrenador" layoutX="119.0" layoutY="168.0" />
+                  <Label layoutX="28.0" layoutY="240.0" text="Descripción:" textAlignment="CENTER">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtDescriptionDeporte" layoutX="120.0" layoutY="218.0" prefHeight="95.0" prefWidth="149.0" />
-                  <Button fx:id="btnAgregarEntrenador" layoutX="134.0" layoutY="180.0" mnemonicParsing="false" onAction="#guardarEntrenadorAction" text="Agregar Entrenador" />
-                  <Button fx:id="btnGuardarDeporte" layoutX="30.0" layoutY="348.0" mnemonicParsing="false" onAction="#guardarDeporteAction" text="Guardar" />
-                  <Button fx:id="btnEliminarDeporte" layoutX="112.0" layoutY="348.0" mnemonicParsing="false" onAction="#eliminarDeporteAction" text="Eliminar" />
-                  <Button fx:id="btnModificarDeporte" layoutX="191.0" layoutY="348.0" mnemonicParsing="false" onAction="#modificarDeporteAction" text="Modificar" />
+                  <TextField fx:id="txtDescriptionDeporte" layoutX="116.0" layoutY="240.0" prefHeight="95.0" prefWidth="149.0" />
+                  <Button fx:id="btnAgregarEntrenador" layoutX="134.0" layoutY="205.0" mnemonicParsing="false" onAction="#agregarEntrenador" text="Agregar Entrenador" />
+                  <Button fx:id="btnGuardarDeporte" layoutX="30.0" layoutY="348.0" mnemonicParsing="false" onAction="#crearDeporte" text="Guardar" />
+                  <Button fx:id="btnEliminarDeporte" layoutX="112.0" layoutY="348.0" mnemonicParsing="false" onAction="#eliminarDeporte" text="Eliminar" />
+                  <Button fx:id="btnModificarDeporte" layoutX="191.0" layoutY="348.0" mnemonicParsing="false" onAction="#editarDeporte" text="Modificar" />
+                  <Label layoutX="53.0" layoutY="70.0" text="Id:">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtId" layoutX="120.0" layoutY="67.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

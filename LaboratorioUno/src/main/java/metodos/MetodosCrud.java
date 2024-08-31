@@ -39,14 +39,19 @@ public class MetodosCrud {
     }
 
     public static void eliminarUsuario(int id,String ruta,List<Modelo>usuarios){
-        //List<Modelo> usuarios=readFromFile();
-        usuarios.removeIf(usuario -> usuario.getId() == id);
+        //usuarios=readFromFile(ruta);
+        for(int i=0;i<usuarios.size();i++){
+            if(usuarios.get(i).getId()==id){
+                usuarios.remove(i);
+            }
+        }
+        //usuarios.removeIf(usuario -> usuario.getId() == id);
         saveToFile(usuarios,ruta);
     }
 
     //buscar objeto por id retorna un objeto
-    public static Modelo buscarUsuario(int id,String ruta,List<Modelo>usuarios){
-        //List<Modelo> usuarios=readFromFile();
+    public static Modelo buscarUsuario(int id,String ruta,Type type){
+        List<Modelo> usuarios=readFromFile(ruta,type);
         Modelo us=new Modelo();
         for(int i=0; i<usuarios.size();i++){
             if(usuarios.get(i).getId()==id){
@@ -69,25 +74,38 @@ public class MetodosCrud {
         }
     }
     //metodo para convertir el json a List
-    public static List<Modelo> readFromFile(String ruta) {
+    public static <T> List<T> readFromFile(String ruta,Type userListType ) {
         Gson gson = new Gson();
 
         try (FileReader reader = new FileReader(ruta)) {
-            Type userListType = new TypeToken<ArrayList<Modelo>>() {
-            }.getType();
-            if (userListType == null) {
+            //Type userListType = new TypeToken<ArrayList<Modelo>>() {
+           //z }.getType();
+           /* if (userListType == null) {
                 System.out.print("noooo");
                 ArrayList<Modelo>m=new ArrayList<>();
                 return m;
             } else {
                 return gson.fromJson(reader, userListType);
-            }
+            }*/
+            return gson.fromJson(reader, userListType);
 
         } catch (IOException e) {
             System.out.println("Ocurrió un error al leer el archivo JSON: " + e.getMessage());
             return new ArrayList<>(); // Retorna lista vacía si ocurre un error
         }
 
+    }
+
+    public static Dificultad dificultadC(int entrada){
+        if(entrada==1){
+            return Dificultad.BAJO;
+        }
+        else if(entrada==2){
+            return Dificultad.MEDIO;
+        }
+        else{
+            return Dificultad.ALTO;
+        }
     }
 }
 
