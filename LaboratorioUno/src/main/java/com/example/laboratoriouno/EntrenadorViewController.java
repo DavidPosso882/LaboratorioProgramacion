@@ -56,14 +56,14 @@ public class EntrenadorViewController {
     void modificarEntrenadorAction(ActionEvent event) {
 
     }
-
+/*
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.tcNombre.setCellValueFactory(new PropertyValueFactory("Nombre"));
         this.tcEspecialidad.setCellValueFactory(new PropertyValueFactory("Especialidad"));
         this.listaEntrenadores =Entrenador.
     }
 
-    public static ArrayList<Entrenador> leerEntrenador() {
+   public static ArrayList<Entrenador> leerEntrenador() {
         ArrayList<Entrenador> listaEntrenador = new ArrayList<>();
         try{
             BufferedReader reader = new BufferedReader(new FileReader(archivoEntrenador));
@@ -96,5 +96,5 @@ public class EntrenadorViewController {
         }
 
         return listaEntrenador;
-    }
+    }*/
 }

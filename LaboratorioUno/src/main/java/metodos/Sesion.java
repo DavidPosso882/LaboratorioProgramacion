@@ -57,7 +57,7 @@ public class Sesion {
         this.entrenador = entrenador;
     }
 
-    public void crearSesionEntrenamiento(LocalDateTime fecha,int duracionMin,Estado estado,Deporte deporte, Entrenador entrenador) {
+    /*public void crearSesionEntrenamiento(LocalDateTime fecha,int duracionMin,Estado estado,Deporte deporte, Entrenador entrenador) {
         Entrenador entrenadorActual = ;
-    }
+    }*/
 }
