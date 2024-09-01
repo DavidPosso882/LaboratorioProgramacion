@@ -4,9 +4,7 @@ module com.example.laboratoriouno {
     requires com.google.gson;
 
     opens com.example.laboratoriouno to javafx.fxml;
+    opens metodos to javafx.base, com.google.gson; // Abrir 'metodos' a ambos módulos
+
     exports com.example.laboratoriouno;
-
-
-    // Exporta el paquete 'metodos' al módulo 'com.google.gson'
-    opens metodos to com.google.gson;
 }
