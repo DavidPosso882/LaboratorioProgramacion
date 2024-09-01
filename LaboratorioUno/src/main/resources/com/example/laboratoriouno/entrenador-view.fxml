@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.EntrenadorViewController">
-   <children>
-      <SplitPane dividerPositions="0.45567375886524825" layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane fx:id="btnBuscar" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <Label layoutX="98.0" layoutY="29.0" text="Entrenador" />
-                  <TextField fx:id="txtNombre" layoutX="63.0" layoutY="116.0" />
-                  <Label layoutX="11.0" layoutY="120.0" text="Nombre:" />
-                  <Label layoutX="7.0" layoutY="170.0" text="Especialidad:" />
-                  <TextField fx:id="txtEspecialidad" layoutX="75.0" layoutY="166.0" />
-                  <Button fx:id="btnGuardar" layoutX="224.0" layoutY="79.0" mnemonicParsing="false" onAction="#buscarEntrenador" prefHeight="25.0" prefWidth="13.0" text="Guardar" />
-                  <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarEntrenadorAction" text="Eliminar" />
-                  <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificarEntrenadorAction" text="Modificar" />
-                  <TextField fx:id="txtId" layoutX="63.0" layoutY="79.0" />
-                  <Label layoutX="34.0" layoutY="83.0" text="Id:" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <TableView fx:id="tableEntrenador" layoutX="52.0" layoutY="23.0" prefHeight="403.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="tcNombre" prefWidth="150.0" text="Nombre" />
-                      <TableColumn fx:id="tcEspecialidad" prefWidth="150.0" text="Especialidad" />
-                    </columns>
-                  </TableView>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
+<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.EntrenadorViewController">
+    <children>
+        <SplitPane dividerPositions="0.45567375886524825" layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Label layoutX="98.0" layoutY="29.0" text="Entrenador" />
+                        <TextField fx:id="txtNombre" layoutX="88.0" layoutY="175.0" />
+                        <Label layoutX="34.0" layoutY="179.0" text="Nombre:" />
+                        <Label layoutX="13.0" layoutY="214.0" text="Especialidad:" />
+                        <TextField fx:id="txtEspecialidad" layoutX="88.0" layoutY="210.0" />
+                        <Button fx:id="btnBuscar" layoutX="95.0" layoutY="116.0" mnemonicParsing="false" onAction="#buscarEntrenador" prefHeight="25.0" prefWidth="75.0" text="Buscar" />
+                        <Button fx:id="btnGuardar" layoutX="28.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardarEntrenadorAction" text="Guardar" />
+                        <Button fx:id="btnEliminar" layoutX="98.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarEntrenadorAction" text="Eliminar" />
+                        <Button fx:id="btnModificar" layoutX="170.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificarEntrenadorAction" text="Modificar" />
+                        <TextField fx:id="txtId" layoutX="88.0" layoutY="79.0" />
+                        <Label layoutX="58.0" layoutY="83.0" text="Id:" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="tableEmpleados" layoutX="52.0" layoutY="23.0" prefHeight="403.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="tcNombre" prefWidth="150.0" text="Nombre" />
+                                <TableColumn fx:id="tcEspecialidad" prefWidth="150.0" text="Especialidad" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </AnchorPane>

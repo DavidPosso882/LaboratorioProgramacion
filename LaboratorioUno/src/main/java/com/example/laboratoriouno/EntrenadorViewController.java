@@ -1,18 +1,17 @@
 package com.example.laboratoriouno;
 
 import com.google.gson.reflect.TypeToken;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import metodos.*;
 
-import java.io.*;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class EntrenadorViewController {
 
@@ -27,13 +26,13 @@ public class EntrenadorViewController {
     private Button btnModificar;
 
     @FXML
-    private TableView<?> tableEmpleados;
+    private TableView<Entrenador> tableEmpleados;
 
     @FXML
-    private TableColumn<?, ?> tcEspecialidad;
+    private TableColumn<Entrenador, String> tcEspecialidad;
 
     @FXML
-    private TableColumn<?, ?> tcNombre;
+    private TableColumn<Entrenador, String> tcNombre;
 
     @FXML
     private TextField txtEspecialidad;
@@ -42,93 +41,82 @@ public class EntrenadorViewController {
     private TextField txtNombre;
     @FXML
     private TextField txtId;
-    String ruta="entrenadores.json";
-    Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
-    List<Modelo>entrenadores= MetodosCrud.readFromFile(ruta,listType);
+    private String ruta = "entrenadores.json";
+    private Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
+    private List<Entrenador> entrenadores = MetodosCrud.readFromFile(ruta, listType);
+    private ObservableList<Entrenador> entrenadorList = FXCollections.observableArrayList(entrenadores);
+
+    @FXML
+    private void initialize() {
+        tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tcEspecialidad.setCellValueFactory(new PropertyValueFactory<>("especialidad"));
+
+        tableEmpleados.setItems(entrenadorList);
+    }
+    
 
     @FXML
     void eliminarEntrenadorAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        MetodosCrud.eliminarUsuario(id,ruta,entrenadores);
-
+        int id = Integer.parseInt(txtId.getText());
+        MetodosCrud.eliminarUsuario(id, ruta, (List<Modelo>) (List<?>) entrenadores);
+        entrenadorList.removeIf(entrenador -> entrenador.getId() == id);
+        tableEmpleados.refresh();
+        limpiarCampos();
+        mostrarAlerta("Entrenador eliminado exitosamente");
     }
 
     @FXML
     void guardarEntrenadorAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        Entrenador entrenador=new Entrenador(id,txtNombre.getText(),txtEspecialidad.getText(),listaSesiones);
-        MetodosCrud.crearUsuario(entrenador,ruta,entrenadores);
+        int id = Integer.parseInt(txtId.getText());
+        Entrenador entrenador = new Entrenador(id, txtNombre.getText(), txtEspecialidad.getText(), listaSesiones);
+        MetodosCrud.crearUsuario(entrenador, ruta, (List<Modelo>) (List<?>) entrenadores);
+        entrenadorList.add(entrenador);
+        tableEmpleados.refresh();
+        limpiarCampos();
+        mostrarAlerta("Entrenador guardado exitosamente");
     }
 
     @FXML
     void modificarEntrenadorAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        Entrenador entrenador=new Entrenador(id,txtNombre.getText(),txtEspecialidad.getText(),listaSesiones);
-        MetodosCrud.editarUsuario(entrenador,ruta,entrenadores);
-        txtEspecialidad.setText("");
+        Entrenador selectedEntrenador = tableEmpleados.getSelectionModel().getSelectedItem();
+        if (selectedEntrenador != null) {
+            int id = Integer.parseInt(txtId.getText());
+            selectedEntrenador.setId(id);
+            selectedEntrenador.setNombre(txtNombre.getText());
+            selectedEntrenador.setEspecialidad(txtEspecialidad.getText());
+
+            MetodosCrud.editarUsuario(selectedEntrenador, ruta, (List<Modelo>) (List<?>) entrenadores);
+            entrenadorList.set(entrenadorList.indexOf(selectedEntrenador), selectedEntrenador);
+            tableEmpleados.refresh();
+            limpiarCampos();
+            mostrarAlerta("Entrenador modificado exitosamente");
+        } else {
+            mostrarAlerta("No se ha seleccionado ningún entrenador para modificar.");
+        }
+    }
+
+    @FXML
+    void buscarEntrenador(ActionEvent event) {
+        int id = Integer.parseInt(txtId.getText());
+        Entrenador entrenador = MetodosCrud.buscarUsuario(id, ruta, listType);
+        if (entrenador == null) {
+            mostrarAlerta("No se encontraron resultados");
+        } else {
+            txtNombre.setText(entrenador.getNombre());
+            txtEspecialidad.setText(entrenador.getEspecialidad());
+        }
+    }
+
+    private void limpiarCampos() {
         txtId.setText("");
         txtNombre.setText("");
         txtEspecialidad.setText("");
-
     }
 
-    void buscarEntrenador(ActionEvent event){
-        int id=Integer.parseInt(txtId.getText());
-        Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
-        Entrenador miembro=MetodosCrud.buscarUsuario(id,ruta,listType);
-        if(miembro==null){
-            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
-            alerta.setTitle("Confirmación");
-        }
-        else{
-            txtNombre.setText(miembro.getNombre());
-            txtEspecialidad.setText(miembro.getEspecialidad());
-            //lbTipo.setText(String.valueOf(miembro.getGrupo()));
-        }
-
+    private void mostrarAlerta(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION, mensaje, ButtonType.OK);
+        alerta.setTitle("Información");
+        alerta.show();
     }
 
-
-
-/*
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.tcNombre.setCellValueFactory(new PropertyValueFactory("Nombre"));
-        this.tcEspecialidad.setCellValueFactory(new PropertyValueFactory("Especialidad"));
-        this.listaEntrenadores =Entrenador.
-    }
-
-   public static ArrayList<Entrenador> leerEntrenador() {
-        ArrayList<Entrenador> listaEntrenador = new ArrayList<>();
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(archivoEntrenador));
-            String linea;
-            try {
-                while ((linea = reader.readLine()) != null){
-                    String[] datos = linea.split(";");
-                    String nombre = datos[0];
-                    String especialidad = datos[1];
-                    ArrayList<Sesion> listaSesiones = new ArrayList<>();
-                    listaEntrenador.add(new Entrenador(nombre, especialidad, listaSesiones));
-                }
-            } catch (Throwable var13) {
-                try {
-                    reader.close();
-                } catch (Throwable var12) {
-                    var13.addSuppressed(var12);
-                }
-
-                throw var13;
-            }
-
-            reader.close();
-        } catch (IOException var14) {
-            try {
-                new BufferedWriter(new FileWriter(archivoEntrenador, true));
-            } catch (IOException var11) {
-                throw new RuntimeException();
-            }
-        }
-
-        return listaEntrenador;
-    }*/
 }
