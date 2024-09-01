@@ -53,17 +53,25 @@ public class EntrenadorViewController {
 
         tableEmpleados.setItems(entrenadorList);
     }
-    
 
     @FXML
     void eliminarEntrenadorAction(ActionEvent event) {
-        int id = Integer.parseInt(txtId.getText());
-        MetodosCrud.eliminarUsuario(id, ruta, (List<Modelo>) (List<?>) entrenadores);
-        entrenadorList.removeIf(entrenador -> entrenador.getId() == id);
-        tableEmpleados.refresh();
-        limpiarCampos();
-        mostrarAlerta("Entrenador eliminado exitosamente");
+        Entrenador selectedEntrenador = tableEmpleados.getSelectionModel().getSelectedItem();
+        if (selectedEntrenador != null) {
+            entrenadorList.remove(selectedEntrenador);
+            MetodosCrud.eliminarUsuario(selectedEntrenador.getId(), ruta, (List<Modelo>) (List<?>) entrenadores);
+            tableEmpleados.refresh(); // Refrescar la tabla
+            limpiarCampos();
+            mostrarAlerta("Entrenador eliminado exitosamente");
+        }
+        else if(txtId.getText()!=null){
+            MetodosCrud.eliminarUsuario(Integer.parseInt(txtId.getText()),ruta,(List<Modelo>) (List<?>) entrenadores);
+        }
+        else {
+            mostrarAlerta("No se ha seleccionado ningún entrenador para eliminar.");
+        }
     }
+
 
     @FXML
     void guardarEntrenadorAction(ActionEvent event) {
@@ -80,8 +88,6 @@ public class EntrenadorViewController {
     void modificarEntrenadorAction(ActionEvent event) {
         Entrenador selectedEntrenador = tableEmpleados.getSelectionModel().getSelectedItem();
         if (selectedEntrenador != null) {
-            int id = Integer.parseInt(txtId.getText());
-            selectedEntrenador.setId(id);
             selectedEntrenador.setNombre(txtNombre.getText());
             selectedEntrenador.setEspecialidad(txtEspecialidad.getText());
 
@@ -95,11 +101,13 @@ public class EntrenadorViewController {
         }
     }
 
+
     @FXML
     void buscarEntrenador(ActionEvent event) {
         int id = Integer.parseInt(txtId.getText());
         Entrenador entrenador = MetodosCrud.buscarUsuario(id, ruta, listType);
         if (entrenador == null) {
+            txtId.setText("");
             mostrarAlerta("No se encontraron resultados");
         } else {
             txtNombre.setText(entrenador.getNombre());
