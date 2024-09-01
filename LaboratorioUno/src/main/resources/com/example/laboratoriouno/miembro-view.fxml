@@ -11,21 +11,23 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label layoutX="16.0" layoutY="179.0" text="Correo:" />
-                  <TextField fx:id="txtId" layoutX="87.0" layoutY="97.0" />
+                  <TextField fx:id="txtId" layoutX="63.0" layoutY="97.0" />
                   <Label layoutX="27.0" layoutY="101.0" text="Id:" />
                   <Label layoutX="11.0" layoutY="139.0" text="Nombre:" />
-                  <TextField fx:id="txtNombre" layoutX="87.0" layoutY="135.0" />
+                  <TextField fx:id="txtNombre" layoutX="63.0" layoutY="135.0" />
                   <Button fx:id="btnGuardar" layoutX="34.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardarMiembroAction" text="Guardar" />
                   <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarMiembroAction" text="Eliminar" />
                   <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#editarMiembroAction" text="Modificar" />
-                  <TextField fx:id="txtCorreo" layoutX="87.0" layoutY="175.0" />
+                  <TextField fx:id="txtCorreo" layoutX="63.0" layoutY="175.0" />
                   <Label layoutX="20.0" layoutY="218.0" text="Tipo:" />
-                  <TextField fx:id="txtTipo" layoutX="87.0" layoutY="214.0" prefHeight="25.0" prefWidth="149.0" promptText="1:Juvenil - 2:Adulto" />
+                  <TextField fx:id="txtTipo" layoutX="63.0" layoutY="214.0" prefHeight="25.0" prefWidth="149.0" promptText="1:Juvenil - 2:Adulto" />
                   <Label layoutX="102.0" layoutY="36.0" text="Miembro">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
+                  <Button fx:id="btnBuscar" layoutX="215.0" layoutY="97.0" mnemonicParsing="false" onAction="#buscarMiembro" prefHeight="17.0" prefWidth="26.0" text="Button" />
+                  <Label fx:id="lbTipo" layoutX="63.0" layoutY="246.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

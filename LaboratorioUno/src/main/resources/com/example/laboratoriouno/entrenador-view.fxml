@@ -7,17 +7,17 @@
    <children>
       <SplitPane dividerPositions="0.45567375886524825" layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="btnBuscar" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
                   <Label layoutX="98.0" layoutY="29.0" text="Entrenador" />
-                  <TextField fx:id="txtNombre" layoutX="91.0" layoutY="116.0" />
-                  <Label layoutX="34.0" layoutY="120.0" text="Nombre:" />
-                  <Label layoutX="14.0" layoutY="170.0" text="Especialidad:" />
-                  <TextField fx:id="txtEspecialidad" layoutX="91.0" layoutY="166.0" />
-                  <Button fx:id="btnGuardar" layoutX="34.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardarEntrenadorAction" text="Guardar" />
+                  <TextField fx:id="txtNombre" layoutX="63.0" layoutY="116.0" />
+                  <Label layoutX="11.0" layoutY="120.0" text="Nombre:" />
+                  <Label layoutX="7.0" layoutY="170.0" text="Especialidad:" />
+                  <TextField fx:id="txtEspecialidad" layoutX="75.0" layoutY="166.0" />
+                  <Button fx:id="btnGuardar" layoutX="224.0" layoutY="79.0" mnemonicParsing="false" onAction="#buscarEntrenador" prefHeight="25.0" prefWidth="13.0" text="Guardar" />
                   <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarEntrenadorAction" text="Eliminar" />
                   <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificarEntrenadorAction" text="Modificar" />
-                  <TextField fx:id="txtId" layoutX="91.0" layoutY="79.0" />
+                  <TextField fx:id="txtId" layoutX="63.0" layoutY="79.0" />
                   <Label layoutX="34.0" layoutY="83.0" text="Id:" />
                </children>
             </AnchorPane>

@@ -3,15 +3,13 @@ package com.example.laboratoriouno;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import metodos.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DeporteController {
     @FXML
@@ -30,6 +28,9 @@ public class DeporteController {
     private TextField txtDificultad;
     @FXML
     private TextField txtIdEntrenador;
+
+    @FXML
+    private Label lbNivel;
 
 
     @FXML
@@ -73,26 +74,56 @@ public class DeporteController {
         txtId.setText("");
         txtNombreDeporte.setText("");
         txtIdEntrenador.setText("");
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se creo un nuevo deporte exitosamente", ButtonType.OK);
+        alerta.showAndWait();
         //mo=new Modelo();
     }
 
     @FXML
     void editarDeporte(ActionEvent event) {
         int id = Integer.parseInt(txtId.getText());
-        int op = Integer.parseInt(txtDificultad.getText());
         //Deporte deporte=new Deporte(id,txtNombreDeporte.getText(),txtDescriptionDeporte.getText(),MetodosCrud.dificultadC(op));
         //deporte.entrenadores.add(mo);
         deporte.setId(id);
         deporte.setNombre(txtNombreDeporte.getText());
-        deporte.setDificultad(MetodosCrud.dificultadC(op));
+        if(txtDificultad.getText()!=null&& !txtDificultad.getText().trim().isEmpty()){
+            int op = Integer.parseInt(txtDificultad.getText());
+            deporte.setDificultad(MetodosCrud.dificultadC(op));
+        }
         deporte.setDescripcion(txtDescriptionDeporte.getText());
         MetodosCrud.editarUsuario(deporte,ruta,m);
         deporte=new Deporte();
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se Modifico exitosamente", ButtonType.OK);
+        alerta.showAndWait();
+        txtDescriptionDeporte.setText("");
+        txtId.setText("");
+        txtNombreDeporte.setText("");
+        txtIdEntrenador.setText("");
+        txtDificultad.setText("");
     }
+
 
     @FXML
     void eliminarDeporte(ActionEvent event) {
         int id = Integer.parseInt(txtId.getText());
         MetodosCrud.eliminarUsuario(id,ruta,m);
+    }
+
+    @FXML
+    void buscarDeporte(ActionEvent event) {
+        int id = Integer.parseInt(txtId.getText());
+        Type listType = new TypeToken<ArrayList<Deporte>>(){}.getType();
+        deporte=MetodosCrud.buscarUsuario(id,ruta,listType);
+        if(deporte==null){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
+            alerta.setTitle("Confirmación");
+        }
+        else{
+            txtNombreDeporte.setText(deporte.getNombre());
+            //txtDificultad.setText(String.valueOf(deporte.getDificultad()));
+            txtDescriptionDeporte.setText(deporte.getDescripcion());
+            lbNivel.setText(String.valueOf(deporte.getDificultad()));
+        }
+
     }
 }

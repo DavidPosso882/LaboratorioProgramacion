@@ -5,15 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import metodos.Grupo;
-import metodos.MetodosCrud;
-import metodos.Miembro;
-import metodos.Modelo;
+import metodos.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -34,6 +28,8 @@ public class MiembroController {
     private TextField txtCorreo;
     @FXML
     private TextField txtTipo;
+    @FXML
+    private Label lbTipo;
 
     @FXML
     Type listType = new TypeToken<ArrayList<Modelo>>(){}.getType();
@@ -72,6 +68,12 @@ public class MiembroController {
         }
         MetodosCrud.crearUsuario(miembro,ruta,m);
         System.out.print(m.toString());
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtTipo.setText("");
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se creo un nuevo miembro",ButtonType.OK);
+        alerta.setTitle("Confirmación");
     }
 
     @FXML
@@ -84,6 +86,12 @@ public class MiembroController {
         }
         MetodosCrud.editarUsuario(miembro,ruta,m);
         System.out.print(m.toString());
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtTipo.setText("");
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "modificado con exito");
+        alerta.setTitle("Confirmación");
     }
 
     @FXML
@@ -91,5 +99,28 @@ public class MiembroController {
         int id=Integer.parseInt(txtId.getText());
         MetodosCrud.eliminarUsuario(id,ruta,m);
         System.out.print(m.toString());
+        txtId.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtTipo.setText("");
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se elimino correctamente");
+        alerta.setTitle("Confirmación");
+    }
+
+    @FXML
+    void buscarMiembro(ActionEvent event) {
+        int id = Integer.parseInt(txtId.getText());
+        Type listType = new TypeToken<ArrayList<Miembro>>(){}.getType();
+        Miembro miembro=MetodosCrud.buscarUsuario(id,ruta,listType);
+        if(miembro==null){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
+            alerta.setTitle("Confirmación");
+        }
+        else{
+            txtNombre.setText(miembro.getNombre());
+            txtCorreo.setText(miembro.getCorreo());
+            lbTipo.setText(String.valueOf(miembro.getGrupo()));
+        }
+
     }
 }

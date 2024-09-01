@@ -45,6 +45,8 @@ public class SesionViewController {
     @FXML
     private TextField txtEntrenador;
     @FXML
+    private Label lbEstado;
+    @FXML
     private DatePicker txtFecha;
 
     String ruta="sesiones.json";
@@ -57,6 +59,8 @@ public class SesionViewController {
     void eliminarSesionAction(ActionEvent event) {
         int id=Integer.parseInt(txtId.getText());
         SesionCrud.eliminarSesion(id,ruta,sesiones);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se elimino exitosamente",ButtonType.OK);
+        alerta.setTitle("Confirmación");
     }
 
     @FXML
@@ -74,6 +78,14 @@ public class SesionViewController {
             SesionCrud.agendarSesion(sesion,ruta,sesiones);
         //}
 
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se agrego exitosamente",ButtonType.OK);
+        alerta.setTitle("Confirmación");
+        txtId.setText("");
+        txtDeporte.setText("");
+        txtDuracion.setText("");
+        txtEntrenador.setText("");
+        txtFecha.setValue(null);
+
     }
 
 
@@ -86,13 +98,20 @@ public class SesionViewController {
         String fechaTexto = txtFecha.getValue().format(formatter);
         Sesion sesion=new Sesion(id,fechaTexto,min,SesionCrud.estadoAc(fechaTexto),deporte,entrenador);
         SesionCrud.editarSesion(sesion,ruta,sesiones);
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se modifico exitosamente",ButtonType.OK);
+        alerta.setTitle("Confirmación");
+        txtId.setText("");
+        txtDeporte.setText("");
+        txtDuracion.setText("");
+        txtEntrenador.setText("");
+        txtFecha.setValue(null);
     }
 
     @FXML
     void addEntrenador(ActionEvent event) {
         int id=Integer.parseInt(txtEntrenador.getText());
         Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
-        entrenador= MetodosCrud.buscarUsuario(id,"miembros.json",listType);
+        entrenador= MetodosCrud.buscarUsuario(id,"entrenadores.json",listType);
     }
     @FXML
     void addDeporte(ActionEvent event) {
@@ -107,7 +126,8 @@ public class SesionViewController {
         Type listType = new TypeToken<ArrayList<Sesion>>(){}.getType();
         Sesion s=SesionCrud.buscarSesion(id,ruta);
         if(s==null){
-            System.out.print("No se encontro coincidencia");
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
+            alerta.setTitle("Confirmación");
         }
         else{
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -115,8 +135,9 @@ public class SesionViewController {
 
             txtFecha.setValue(fecha);
             txtDuracion.setText(String.valueOf(s.getDuracionMin()));
+            lbEstado.setText(String.valueOf(sesion.getEstado()));
             if(s.getDeporte()==null||s.getEntrenador()==null){
-                System.out.print("entrenador o deporte son nulos");
+                System.out.print("Datos nulos");
             }
             else{
                 txtEntrenador.setText(Integer.toString(s.getEntrenador().getId()));

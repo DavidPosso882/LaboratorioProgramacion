@@ -3,15 +3,9 @@ package com.example.laboratoriouno;
 import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import metodos.Entrenador;
-import metodos.MetodosCrud;
-import metodos.Modelo;
-import metodos.Sesion;
+import metodos.*;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -71,6 +65,26 @@ public class EntrenadorViewController {
         int id=Integer.parseInt(txtId.getText());
         Entrenador entrenador=new Entrenador(id,txtNombre.getText(),txtEspecialidad.getText(),listaSesiones);
         MetodosCrud.editarUsuario(entrenador,ruta,entrenadores);
+        txtEspecialidad.setText("");
+        txtId.setText("");
+        txtNombre.setText("");
+        txtEspecialidad.setText("");
+
+    }
+
+    void buscarEntrenador(ActionEvent event){
+        int id=Integer.parseInt(txtId.getText());
+        Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
+        Entrenador miembro=MetodosCrud.buscarUsuario(id,ruta,listType);
+        if(miembro==null){
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
+            alerta.setTitle("Confirmación");
+        }
+        else{
+            txtNombre.setText(miembro.getNombre());
+            txtEspecialidad.setText(miembro.getEspecialidad());
+            //lbTipo.setText(String.valueOf(miembro.getGrupo()));
+        }
 
     }
 
