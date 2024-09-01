@@ -3,13 +3,15 @@ package metodos;
 import java.time.LocalDateTime;
 
 public class Sesion {
-    private LocalDateTime fecha;
+    private int id;
+    private String fecha;
     private int duracionMin;
     public Estado estado;
     public Deporte deporte;
     public Entrenador entrenador;
 
-    public Sesion(LocalDateTime fecha, int duracionMin, Estado estado, Deporte deporte, Entrenador entrenador) {
+    public Sesion(int id, String fecha, int duracionMin, Estado estado, Deporte deporte, Entrenador entrenador) {
+        this.id = id;
         this.fecha = fecha;
         this.duracionMin = duracionMin;
         this.estado = estado;
@@ -17,11 +19,16 @@ public class Sesion {
         this.entrenador = entrenador;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public Sesion() {
+
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public String getFecha() {
+        return fecha;
+
+    }
+
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -57,6 +64,13 @@ public class Sesion {
         this.entrenador = entrenador;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     /*public void crearSesionEntrenamiento(LocalDateTime fecha,int duracionMin,Estado estado,Deporte deporte, Entrenador entrenador) {
         Entrenador entrenadorActual = ;
     }*/

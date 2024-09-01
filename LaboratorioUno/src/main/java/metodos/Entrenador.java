@@ -3,23 +3,15 @@ package metodos;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Entrenador {
-    private String nombre;
+public class Entrenador extends Modelo {
+
     private String especialidad;
     public ArrayList<Sesion> listaSesiones;
 
-    public Entrenador(String nombre, String especialidad, ArrayList<Sesion> listaSesiones) {
-        this.nombre = nombre;
+    public Entrenador(int id, String nombre, String especialidad, ArrayList<Sesion> listaSesiones) {
+        super(id, nombre);
         this.especialidad = especialidad;
         this.listaSesiones = listaSesiones;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getEspecialidad() {
@@ -37,8 +29,4 @@ public class Entrenador {
     public void setListaSesiones(ArrayList<Sesion> listaSesiones) {
         this.listaSesiones = listaSesiones;
     }
-    public void enlistarSesion(Sesion sesion){
-        listaSesiones.add(sesion);
-    }
-
 }

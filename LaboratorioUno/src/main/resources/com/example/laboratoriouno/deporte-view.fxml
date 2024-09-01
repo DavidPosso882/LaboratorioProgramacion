@@ -32,7 +32,7 @@
                         <Font size="13.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtIdEntrenador" layoutX="119.0" layoutY="168.0" />
+                  <TextField fx:id="txtIdEntrenador" layoutX="119.0" layoutY="168.0" promptText="Ingrese Id del entrenador" />
                   <Label layoutX="28.0" layoutY="240.0" text="Descripción:" textAlignment="CENTER">
                      <font>
                         <Font size="13.0" />

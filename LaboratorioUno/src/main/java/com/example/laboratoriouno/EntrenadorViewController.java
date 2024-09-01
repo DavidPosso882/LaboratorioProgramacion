@@ -1,5 +1,6 @@
 package com.example.laboratoriouno;
 
+import com.google.gson.reflect.TypeToken;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,16 +9,20 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import metodos.Entrenador;
+import metodos.MetodosCrud;
+import metodos.Modelo;
 import metodos.Sesion;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EntrenadorViewController {
 
-    ArrayList<Entrenador> listaEntrenadores;
+    ArrayList<Sesion> listaSesiones;
     @FXML
     private Button btnEliminar;
 
@@ -41,21 +46,36 @@ public class EntrenadorViewController {
 
     @FXML
     private TextField txtNombre;
+    @FXML
+    private TextField txtId;
+    String ruta="entrenadores.json";
+    Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
+    List<Modelo>entrenadores= MetodosCrud.readFromFile(ruta,listType);
 
     @FXML
     void eliminarEntrenadorAction(ActionEvent event) {
+        int id=Integer.parseInt(txtId.getText());
+        MetodosCrud.eliminarUsuario(id,ruta,entrenadores);
 
     }
 
     @FXML
     void guardarEntrenadorAction(ActionEvent event) {
-
+        int id=Integer.parseInt(txtId.getText());
+        Entrenador entrenador=new Entrenador(id,txtNombre.getText(),txtEspecialidad.getText(),listaSesiones);
+        MetodosCrud.crearUsuario(entrenador,ruta,entrenadores);
     }
 
     @FXML
     void modificarEntrenadorAction(ActionEvent event) {
+        int id=Integer.parseInt(txtId.getText());
+        Entrenador entrenador=new Entrenador(id,txtNombre.getText(),txtEspecialidad.getText(),listaSesiones);
+        MetodosCrud.editarUsuario(entrenador,ruta,entrenadores);
 
     }
+
+
+
 /*
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.tcNombre.setCellValueFactory(new PropertyValueFactory("Nombre"));

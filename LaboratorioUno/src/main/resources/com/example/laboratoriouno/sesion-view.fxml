@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.Entrenador">
+<AnchorPane prefHeight="405.0" prefWidth="566.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.SesionViewController">
    <children>
       <SplitPane dividerPositions="0.45567375886524825" layoutX="287.0" layoutY="159.0" prefHeight="405.0" prefWidth="566.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="110.0" layoutY="29.0" text="Sesion" />
-                  <Label layoutX="22.0" layoutY="64.0" text="Fecha" />
-                  <Label layoutX="14.0" layoutY="95.0" text="Duracion(Min)" />
+                  <Label layoutX="109.0" layoutY="14.0" text="Sesion" />
+                  <Label layoutX="19.0" layoutY="93.0" text="Fecha" />
+                  <Label layoutX="12.0" layoutY="137.0" text="Duracion(Min)" />
                   <Button fx:id="btnGuardar" layoutX="34.0" layoutY="330.0" mnemonicParsing="false" onAction="#guardarSesionAction" text="Guardar" />
                   <Button fx:id="btnEliminar" layoutX="103.0" layoutY="330.0" mnemonicParsing="false" onAction="#eliminarSesionAction" text="Eliminar" />
                   <Button fx:id="btnModificar" layoutX="174.0" layoutY="330.0" mnemonicParsing="false" onAction="#modificarSesionAction" text="Modificar" />
-                  <DatePicker layoutX="79.0" layoutY="60.0" />
-                  <Label layoutX="16.0" layoutY="128.0" text="Deporte" />
-                  <Label layoutX="9.0" layoutY="162.0" text="Entrenador" />
-                  <TextField fx:id="txtDuracion" layoutX="92.0" layoutY="91.0" />
-                  <TextField fx:id="txtDeporte" layoutX="92.0" layoutY="124.0" />
-                  <TextField fx:id="txtEntrenador" layoutX="92.0" layoutY="158.0" />
+                  <DatePicker fx:id="txtFecha" layoutX="74.0" layoutY="89.0" />
+                  <Label layoutX="20.0" layoutY="180.0" text="Deporte" />
+                  <Label layoutX="20.0" layoutY="257.0" text="Entrenador" />
+                  <TextField fx:id="txtDuracion" layoutX="92.0" layoutY="133.0" />
+                  <TextField fx:id="txtDeporte" layoutX="92.0" layoutY="176.0" promptText="Id deporte" />
+                  <TextField fx:id="txtEntrenador" layoutX="91.0" layoutY="253.0" promptText="Id entrenador" />
+                  <Button fx:id="btnAddDeporte" layoutX="214.0" layoutY="215.0" mnemonicParsing="false" onAction="#addDeporte" text="+" />
+                  <Button fx:id="btnAddEntrenador" layoutX="214.0" layoutY="284.0" mnemonicParsing="false" onAction="#addEntrenador" text="+" />
+                  <Label layoutX="20.0" layoutY="59.0" text="Id:" />
+                  <TextField fx:id="txtId" layoutX="74.0" layoutY="55.0" />
+                  <Button fx:id="btnBuscar" layoutX="228.0" layoutY="55.0" mnemonicParsing="false" onAction="#buscarSesion" prefHeight="17.0" prefWidth="25.0" text="Button" />
                </children>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">

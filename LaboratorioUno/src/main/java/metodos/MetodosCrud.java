@@ -50,16 +50,17 @@ public class MetodosCrud {
     }
 
     //buscar objeto por id retorna un objeto
-    public static Modelo buscarUsuario(int id,String ruta,Type type){
-        List<Modelo> usuarios=readFromFile(ruta,type);
-        Modelo us=new Modelo();
+    public static <T extends Modelo> T buscarUsuario(int id, String ruta, Type type){
+        List<T> usuarios=readFromFile(ruta,type);
+        //T us=new T();
         for(int i=0; i<usuarios.size();i++){
             if(usuarios.get(i).getId()==id){
-                us=usuarios.get(i);
-                break;
+                //us=usuarios.get(i);
+                //break;
+                return usuarios.get(i);
             }
         }
-        return us;
+        return null;
     }
 
     //Este metodo guarda la lista en el archivo json
