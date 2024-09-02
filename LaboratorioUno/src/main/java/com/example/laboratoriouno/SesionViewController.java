@@ -93,6 +93,9 @@ public class SesionViewController {
         int id = Integer.parseInt(txtEntrenador.getText());
         Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
         entrenador = MetodosCrud.buscarUsuario(id, "entrenadores.json", listType);
+        if(entrenador==null){
+            mostrarAlerta("No se encontraron resultados");
+        }
     }
 
     @FXML
@@ -100,6 +103,9 @@ public class SesionViewController {
         int id = Integer.parseInt(txtDeporte.getText());
         Type listType = new TypeToken<ArrayList<Deporte>>(){}.getType();
         deporte = MetodosCrud.buscarUsuario(id, "deportes.json", listType);
+        if(deporte==null){
+            mostrarAlerta("No se encontraron resultados");
+        }
     }
 
     @FXML
