@@ -1,6 +1,7 @@
 package com.example.laboratoriouno;
 
 import com.google.gson.reflect.TypeToken;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +38,9 @@ public class SesionViewController {
 
     @FXML
     private TableColumn<Sesion, String> tcFecha;
+
+    @FXML
+    private TableColumn<Sesion, Estado> tcEstado;
 
     @FXML
     private TextField txtDeporte;
@@ -77,10 +81,12 @@ public class SesionViewController {
             return entrenador != null ? new SimpleStringProperty(entrenador.getNombre()) : new SimpleStringProperty("");
         });
         tcFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        tcEstado.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getEstado()));
 
         // Asignar los datos a la tabla
         tableSesion.setItems(sesionList);
     }
+
 
     @FXML
     void addEntrenador(ActionEvent event) {
