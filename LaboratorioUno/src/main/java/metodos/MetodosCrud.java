@@ -2,6 +2,11 @@ package metodos;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -108,6 +113,8 @@ public class MetodosCrud {
             return Dificultad.ALTO;
         }
     }
+
+
 }
 
 

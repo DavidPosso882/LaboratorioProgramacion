@@ -2,12 +2,23 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="374.0" prefWidth="484.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboratoriouno.HelloController">
    <children>
-      <Button fx:id="btnDeporte" layoutX="66.0" layoutY="91.0" mnemonicParsing="false" onAction="#abrirDeporte" text="Deporte" />
-      <Button fx:id="btnMiembro" layoutX="66.0" layoutY="162.0" mnemonicParsing="false" text="Miembro" />
-      <Button fx:id="btnSesion" layoutX="66.0" layoutY="235.0" mnemonicParsing="false" text="Sesion" />
-      <Button fx:id="btnEntrenador" layoutX="70.0" layoutY="289.0" mnemonicParsing="false" text="Entrenador" />
+      <Button fx:id="btnDeporte" layoutX="65.0" layoutY="251.0" mnemonicParsing="false" onAction="#abrirVDeporte" text="Gestionar deportes" />
+      <Button fx:id="btnMiembro" layoutX="62.0" layoutY="313.0" mnemonicParsing="false" onAction="#abrirVMiembro" text="Gestionar miembros" />
+      <Button fx:id="btnSesion" layoutX="300.0" layoutY="251.0" mnemonicParsing="false" onAction="#abrirVSesion" prefHeight="25.0" prefWidth="138.0" text="Gestionar sesiones" />
+      <Button fx:id="btnEntrenador" layoutX="300.0" layoutY="313.0" mnemonicParsing="false" onAction="#abrirVEntrenador" text="Gestionar entrenadores" />
+      <Label layoutX="171.0" layoutY="30.0" text="Administrador">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="102.0" layoutY="79.0" text="Id:" />
+      <Label layoutX="102.0" layoutY="135.0" text="Nombre:" />
+      <TextField fx:id="txtId" layoutX="166.0" layoutY="75.0" />
+      <TextField fx:id="txtNombre" layoutX="166.0" layoutY="131.0" />
+      <Button fx:id="btnGuardar" layoutX="214.0" layoutY="175.0" mnemonicParsing="false" onAction="#guardarAdmin" text="Guardar" />
    </children>
 </Pane>
