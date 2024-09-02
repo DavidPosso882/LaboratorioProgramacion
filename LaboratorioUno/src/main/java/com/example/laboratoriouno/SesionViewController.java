@@ -1,9 +1,13 @@
 package com.example.laboratoriouno;
 
 import com.google.gson.reflect.TypeToken;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import metodos.*;
 
 import java.lang.reflect.Type;
@@ -23,16 +27,16 @@ public class SesionViewController {
     private Button btnModificar;
 
     @FXML
-    private TableView<?> tableSesion;
+    private TableView<Sesion> tableSesion;
 
     @FXML
-    private TableColumn<?, ?> tcDeporte;
+    private TableColumn<Sesion, String> tcDeporte;
 
     @FXML
-    private TableColumn<?, ?> tcEntrenador;
+    private TableColumn<Sesion, String> tcEntrenador;
 
     @FXML
-    private TableColumn<?, ?> tcFecha;
+    private TableColumn<Sesion, String> tcFecha;
 
     @FXML
     private TextField txtDeporte;
@@ -49,103 +53,169 @@ public class SesionViewController {
     @FXML
     private DatePicker txtFecha;
 
-    String ruta="sesiones.json";
-    List<Sesion>sesiones=SesionCrud.readFromFile(ruta);
-    Deporte deporte;
-    Entrenador entrenador;
-    Sesion sesion=new Sesion();
+    private String ruta = "sesiones.json";
+    private Type listTypeSesion = new TypeToken<ArrayList<Sesion>>(){}.getType();
+    private List<Sesion> sesiones;
+    private ObservableList<Sesion> sesionList;
+
+    private Deporte deporte;
+    private Entrenador entrenador;
 
     @FXML
-    void eliminarSesionAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        SesionCrud.eliminarSesion(id,ruta,sesiones);
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se elimino exitosamente",ButtonType.OK);
-        alerta.setTitle("Confirmación");
-    }
+    private void initialize() {
+        // Leer los datos del archivo JSON
+        sesiones = SesionCrud.readFromFile(ruta);
+        sesionList = FXCollections.observableArrayList(sesiones);
 
-    @FXML
-    void guardarSesionAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        int min=Integer.parseInt(txtDuracion.getText());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaTexto = txtFecha.getValue().format(formatter);
+        // Configurar las columnas de la tabla
+        tcDeporte.setCellValueFactory(cellData -> {
+            Deporte deporte = cellData.getValue().getDeporte();
+            return deporte != null ? new SimpleStringProperty(deporte.getNombre()) : new SimpleStringProperty("");
+        });
+        tcEntrenador.setCellValueFactory(cellData -> {
+            Entrenador entrenador = cellData.getValue().getEntrenador();
+            return entrenador != null ? new SimpleStringProperty(entrenador.getNombre()) : new SimpleStringProperty("");
+        });
+        tcFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
 
-        //if(deporte==null||entrenador==null){
-            System.out.print(txtFecha);
-        //}
-        //else{
-            Sesion sesion=new Sesion(id,fechaTexto,min,SesionCrud.estadoAc(fechaTexto),deporte,entrenador);
-            SesionCrud.agendarSesion(sesion,ruta,sesiones);
-        //}
-
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se agrego exitosamente",ButtonType.OK);
-        alerta.setTitle("Confirmación");
-        txtId.setText("");
-        txtDeporte.setText("");
-        txtDuracion.setText("");
-        txtEntrenador.setText("");
-        txtFecha.setValue(null);
-
-    }
-
-
-
-    @FXML
-    void modificarSesionAction(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        int min=Integer.parseInt(txtDuracion.getText());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String fechaTexto = txtFecha.getValue().format(formatter);
-        Sesion sesion=new Sesion(id,fechaTexto,min,SesionCrud.estadoAc(fechaTexto),deporte,entrenador);
-        SesionCrud.editarSesion(sesion,ruta,sesiones);
-        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "Se modifico exitosamente",ButtonType.OK);
-        alerta.setTitle("Confirmación");
-        txtId.setText("");
-        txtDeporte.setText("");
-        txtDuracion.setText("");
-        txtEntrenador.setText("");
-        txtFecha.setValue(null);
+        // Asignar los datos a la tabla
+        tableSesion.setItems(sesionList);
     }
 
     @FXML
     void addEntrenador(ActionEvent event) {
-        int id=Integer.parseInt(txtEntrenador.getText());
+        int id = Integer.parseInt(txtEntrenador.getText());
         Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
-        entrenador= MetodosCrud.buscarUsuario(id,"entrenadores.json",listType);
+        entrenador = MetodosCrud.buscarUsuario(id, "entrenadores.json", listType);
     }
+
     @FXML
     void addDeporte(ActionEvent event) {
-        int id=Integer.parseInt(txtDeporte.getText());
+        int id = Integer.parseInt(txtDeporte.getText());
         Type listType = new TypeToken<ArrayList<Deporte>>(){}.getType();
-        deporte=MetodosCrud.buscarUsuario(id,"deportes.json",listType);
-
+        deporte = MetodosCrud.buscarUsuario(id, "deportes.json", listType);
     }
+
     @FXML
     void buscarSesion(ActionEvent event) {
-        int id=Integer.parseInt(txtId.getText());
-        Type listType = new TypeToken<ArrayList<Sesion>>(){}.getType();
-        Sesion s=SesionCrud.buscarSesion(id,ruta);
-        if(s==null){
-            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados",ButtonType.OK);
+        int id = Integer.parseInt(txtId.getText());
+        Sesion sesion = SesionCrud.buscarSesion(id, ruta);
+        if (sesion == null) {
+            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, "No se encontraron resultados", ButtonType.OK);
             alerta.setTitle("Confirmación");
-        }
-        else{
+            alerta.showAndWait();
+        } else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fecha = LocalDate.parse(s.getFecha(),formatter);
+            LocalDate fecha = LocalDate.parse(sesion.getFecha(), formatter);
 
             txtFecha.setValue(fecha);
-            txtDuracion.setText(String.valueOf(s.getDuracionMin()));
+            txtDuracion.setText(String.valueOf(sesion.getDuracionMin()));
             lbEstado.setText(String.valueOf(sesion.getEstado()));
-            if(s.getDeporte()==null||s.getEntrenador()==null){
+            if (sesion.getDeporte() == null || sesion.getEntrenador() == null) {
                 System.out.print("Datos nulos");
+            } else {
+                txtEntrenador.setText(Integer.toString(sesion.getEntrenador().getId()));
+                txtDeporte.setText(Integer.toString(sesion.getDeporte().getId()));
             }
-            else{
-                txtEntrenador.setText(Integer.toString(s.getEntrenador().getId()));
-                txtDeporte.setText(Integer.toString(s.getDeporte().getId()));
-            }
-
-
-
         }
     }
+
+    @FXML
+    void eliminarSesionAction(ActionEvent event) {
+        Sesion selectedSesion = tableSesion.getSelectionModel().getSelectedItem();
+        if (selectedSesion != null) {
+            sesionList.remove(selectedSesion);
+            SesionCrud.eliminarSesion(selectedSesion.getId(), ruta, sesiones);
+            tableSesion.refresh();
+            mostrarAlerta("Se eliminó exitosamente");
+        } else if (!txtId.getText().isEmpty()) {
+            int id = Integer.parseInt(txtId.getText());
+            SesionCrud.eliminarSesion(id, ruta, sesiones);
+            sesionList.removeIf(s -> s.getId() == id);
+            tableSesion.refresh();
+            mostrarAlerta("Se eliminó exitosamente");
+        } else {
+            mostrarAlerta("No se ha seleccionado ninguna sesión para eliminar.");
+        }
+    }
+
+    @FXML
+    void guardarSesionAction(ActionEvent event) {
+        int id = Integer.parseInt(txtId.getText());
+        int min = Integer.parseInt(txtDuracion.getText());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fechaTexto = txtFecha.getValue().format(formatter);
+
+        // Verificar si la sesión ya existe
+        Sesion sesionExistente = SesionCrud.buscarSesion(id, ruta);
+        if (sesionExistente != null) {
+            mostrarAlerta("Ya existe una sesión con este ID.");
+            return;
+        }
+
+        // Crear los objetos Deporte y Entrenador si no existen
+        if (deporte == null) {
+            int deporteId = Integer.parseInt(txtDeporte.getText());
+            Type listType = new TypeToken<ArrayList<Deporte>>(){}.getType();
+            deporte = MetodosCrud.buscarUsuario(deporteId, "deportes.json", listType);
+        }
+
+        if (entrenador == null) {
+            int entrenadorId = Integer.parseInt(txtEntrenador.getText());
+            Type listType = new TypeToken<ArrayList<Entrenador>>(){}.getType();
+            entrenador = MetodosCrud.buscarUsuario(entrenadorId, "entrenadores.json", listType);
+        }
+
+        Sesion sesion = new Sesion(id, fechaTexto, min, SesionCrud.estadoAc(fechaTexto), deporte, entrenador);
+        SesionCrud.agendarSesion(sesion, ruta, sesiones);
+
+        // Actualizar la lista observable
+        sesionList.add(sesion);
+        tableSesion.refresh();
+        limpiarCampos();
+        mostrarAlerta("Se agregó exitosamente");
+    }
+
+    @FXML
+    void modificarSesionAction(ActionEvent event) {
+        Sesion selectedSesion = tableSesion.getSelectionModel().getSelectedItem();
+        if (selectedSesion != null) {
+            int id = Integer.parseInt(txtId.getText());
+            int min = Integer.parseInt(txtDuracion.getText());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String fechaTexto = txtFecha.getValue().format(formatter);
+
+            selectedSesion.setId(id);
+            selectedSesion.setDuracionMin(min);
+            selectedSesion.setFecha(fechaTexto);
+            selectedSesion.setEstado(SesionCrud.estadoAc(fechaTexto));
+            selectedSesion.setDeporte(deporte);
+            selectedSesion.setEntrenador(entrenador);
+
+            SesionCrud.editarSesion(selectedSesion, ruta, sesiones);
+            tableSesion.refresh();
+            limpiarCampos();
+            mostrarAlerta("Se modificó exitosamente");
+        } else {
+            mostrarAlerta("No se ha seleccionado ninguna sesión para modificar.");
+        }
+    }
+
+    private void limpiarCampos() {
+        txtId.setText("");
+        txtDeporte.setText("");
+        txtDuracion.setText("");
+        txtEntrenador.setText("");
+        txtFecha.setValue(null);
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION, mensaje, ButtonType.OK);
+        alerta.showAndWait();
+    }
 }
+
+
+
+
+
